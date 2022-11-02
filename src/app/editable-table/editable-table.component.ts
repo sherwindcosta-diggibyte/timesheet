@@ -1,9 +1,10 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { ServiceService } from '../service/service.service';
 import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-editable-table',
@@ -24,6 +25,17 @@ myDate = new Date();
   
   // Tue!: 8;
   TotalHours!:any;
+  public fieldArray: Array<any> = [];
+  public newAttribute: any = {};
+
+  currentTime = new Date();
+
+// get current month  getMonth(), +1 means getting current month
+
+minDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth(), +1);
+
+maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +1, +0);
+
   constructor(public datepipe: DatePipe, private service:ServiceService) { 
 
   }
@@ -109,37 +121,15 @@ myDate = new Date();
      
 
     },
-      
-    // {
-    //   "date":"",
-
-    //   "Project_Name": "PRJ2",
-    //   "Task_Name": "",
-    //   "Hours": "",
-    //   "isEdit": false
-
-    // },
-    // {
-    //   "date":"",
-
-    //   "Project_Name": "PRJ2",
-    //   "Task_Name": "",
-    //   "Hours": "",
-    //   "isEdit": false
-
-    // },
-    // {
-    //   "date":"",
-
-    //   "Project_Name": "PRJ1",
-    //   "Task_Name": "",
-    //   "Hours": "",
-    //   "isEdit": false
-
-    // },
+    
+    
   ]
+  
+  dynamicArray:any = [];
+  displayedColumns: string[] = ['date', 'project_name', 'task_name', 'hours','save'];
+  dataSource = this.logdata;
 
-
+  @ViewChild(MatTable) table!: MatTable<any>;
   ngOnInit(): void {
 
     this.getEmpname = this.service.fetchAllEmployee().subscribe((data:any)=>{
@@ -175,5 +165,12 @@ applyFilter(event: Event) {
   this.emp_name.filter = filterValue.trim().toLowerCase();
  
   }
+  addData() {
+    const randomElementIndex = Math.floor(Math.random() * this.logdata.length);
+    this.dataSource.push(this.logdata[randomElementIndex]);
+    this.table.renderRows();
+  }
+ 
+
   
 }

@@ -68,7 +68,7 @@ export class MainTableComponent implements OnInit {
   constructor(private service:ServiceService,private router:Router){
     this.filterSelectObj = [
       {
-        name: 'Project Name',
+        name: 'Employee Name',
         columnProp: 'emp_name',
         options: []
       },

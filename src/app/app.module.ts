@@ -22,13 +22,15 @@ import { MatInputModule } from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchPipe } from './pipe/search.pipe';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { PocTableComponent } from './poc-table/poc-table.component';
 @NgModule({
   declarations: [
     AppComponent,
     EditableTableComponent,
     MainTableComponent,
     SearchPipe,
-    EditFormComponent
+    EditFormComponent,
+    PocTableComponent
   ],
   imports: [
     BrowserModule,

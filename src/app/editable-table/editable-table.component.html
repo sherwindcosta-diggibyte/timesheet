@@ -1,16 +1,11 @@
 <div  *ngFor="let user of logdata">
-    <!-- <div>
-        <button class="weekblock">
-            <input type="week">
-          </button>
-    </div> -->
+
     
     <div class="column1">
         
 
-        <!-- <mat-form-field appearance="fill"> -->
             <div  class="col-sm-2">
-            <!-- <label for="" class="col-sm-2 form-control-label">Employee Name</label> -->
+        
             <select class="selectpicker" data-size="5" title="Employee Name" [(ngModel)]="user.emp_name" class="form-control selectpicker"  data-live-search="true" >
                 <option  data-hidden="true"></option>
               <option *ngFor="let name of emp_name" [value]="name.emp_name">
@@ -18,29 +13,16 @@
               </option>
             </select>
         </div>
-            <!-- <label>Country</label>
-              <div class="col-sm-10">
-                <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                <option data-tokens="china">China</option>
-                <option data-tokens="malayasia">Malayasia</option>
-                <option data-tokens="singapore">Singapore</option>
-                </select>
-
-              </div> -->
-          <!-- </mat-form-field> -->
-
-          <!-- <mat-form-field appearance="fill"> -->
-            <!-- <mat-label>Type</mat-label> -->
+          
             <div  class="col-sm-2">
             <select [(ngModel)]="user.p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
                 <option  data-hidden="true"></option>
                 <option value="devops">Devops</option>
               <option value="Developer">Developer</option>
             </select>
-          <!-- </mat-form-field> -->
+       
             </div>
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Week</mat-label> -->
+       
             <div  class="col-sm-2">
             <select [(ngModel)]="user.week_no" class="selectpicker" data-size="5" title="Week" class="form-control selectpicker"  data-live-search="true">
                 <option  data-hidden="true"></option>
@@ -50,29 +32,16 @@
             </option>
             </select>
             </div>
-          <!-- </mat-form-field> -->
+         
 
     </div>
 
     
-    <table class="table table-striped table-hover table-bordered table-responsive">
+    <table  class="table table-striped table-hover table-bordered table-responsive">
        
         <thead>
           <tr>
-            <!-- <th scope="col">#</th>
-            <th scope="col">ProjectID</th>
-            <th scope="col">TaskID</th>
-            <th scope="col">WorkingHours</th>
-            <th scope="col">Mon</th>
-            <th scope="col">Tue</th>
-            <th scope="col">Wed</th>
-            <th scope="col">Thu</th>
-            <th scope="col">Fri</th>
-            <th scope="col">Sat</th>
-            <th scope="col">Sun</th>
-            <th scope="col">Total Hours</th>
-            <th scope="col">Comments</th>
-            <th scope="col">Action</th> -->
+          
             <th scope="col">Date</th>
             <th scope="col">Project Name</th>
             <th scope="col">Task Name</th>
@@ -80,177 +49,93 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr >
             <td class="tsid">
-                <!-- <div *ngIf="user.isEdit"> -->
-                    <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
-                <!-- </div>
-                <div *ngIf!="user.isEdit"> -->
-                    <!-- {{user.ts_id}} -->
-                <!-- </div> -->
+                <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
             </td>
             <td>
-                <!-- <div *ngIf="user.isEdit"> -->
-                    <input type="date" [(ngModel)]="user.date" class="form-control"  value="{{user.date | date:'yyyy-MM-dd'}}"/>
-                <!-- </div>
-                <div *ngIf!="user.isEdit"> -->
-                    <!-- {{user.date}} -->
-                <!-- </div> -->
+                <input type="date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >
             </td>
             <td>
-                <!-- <div *ngIf="user.isEdit"> -->
+             
                     <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
                         <option  data-hidden="true"></option>
                         <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                        <!-- <option value="Prj2">Project002</option>
-                        <option value="Prj3">Project003</option>
-                        <option value="Prj4">Project004</option> -->
                       </select>            
-                <!-- </div> -->
-                <!-- <div *ngIf!="user.isEdit"> -->
-                    <!-- {{user.project_name}} -->
-                <!-- </div> -->
-            </td>
-            <!-- <td>
-                <div *ngIf="user.isEdit">
-                        <input type="text" [(ngModel)]="user.ProjectID" class="form-control" />
-                </div>
-                <div *ngIf!="user.isEdit">
-                    {{user.ProjectID}}
-    
-                </div>
-            </td> -->
-
-            <td>
-                <!-- <div *ngIf="user.isEdit"> -->
-                    <input type="text" [(ngModel)]="user.task_name" class="form-control" />
-                <!-- </div> -->
-                <!-- <div *ngIf!="user.isEdit"> -->
-                    <!-- {{user.task_name}} -->
-                <!-- </div> -->
-            </td>
-
-            <td>
-                <!-- <div *ngIf="user.isEdit"> -->
-                    <input type="text" [(ngModel)]="user.hours" class="form-control" />
-                <!-- </div> -->
-                <!-- <div *ngIf!="user.isEdit"> -->
-                    <!-- {{user.hours}} -->
-                <!-- </div> -->
-            </td>
-
-            <!-- <td>
-                <div *ngIf="user.isEdit">
-                    <select>
-                        <option value="Tsk1">Task001</option>
-                        <option value="Tsk2">Task002</option>
-                        <option value="Tsk3">Task003</option>
-                        <option value="Tsk4">Task004</option>
-                      </select>   
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.TaskID}}
-    
-            </div>
-                </td> -->
-            <!-- <td>
-                <div *ngIf="user.isEdit">
-                    <select>
-                        <option value="Regular">Regular</option>
-                        <option value="Overtime">Overtime</option>
-                        <option value="PublicHoliday">PublicHoliday</option>
-                      </select> 
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.WorkingHours}}
-    
-            </div>
-                </td> -->
-            <!-- <td>
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Mon" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Mon}}
-    
-            </div>
-               </td>
-            <td>        <div *ngIf="user.isEdit">
-                <input type="text" [(ngModel)]="user.Tue" class="form-control" />
-        </div>
-        <div *ngIf!="user.isEdit">
-            {{user.Tue}}
-    
-        </div>
-             </td>
-            <td>         <div *ngIf="user.isEdit">
-                <input type="text" [(ngModel)]="user.Wed" class="form-control" />
-        </div>
-        <div *ngIf!="user.isEdit">
-            {{user.Wed}}
-    
-        </div> 
-    </td>
-            <td> 
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Thu" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Thu}}
-    
-            </div>
-            </td>
-            <td>
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Fri" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Fri}}
-    
-            </div>
-            </td>
-            <td>
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Sat" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Sat}}
-    
-            </div>
              </td>
             <td>
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Sun" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Sun}}
-    
-            </div>
-             </td>
+                <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+           </td>
+
             <td>
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.TotalHours" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.TotalHours}}
-    
-            </div>
+                <input type="text" [(ngModel)]="user.hours" class="form-control" />
             </td>
-            <td> 
-                <div *ngIf="user.isEdit">
-                    <input type="text" [(ngModel)]="user.Comments" class="form-control" />
-            </div>
-            <div *ngIf!="user.isEdit">
-                {{user.Comments}}
-    
-            </div>
-            </td> -->
-            <!-- <td><button type="button" class="btn btn-primary" (click)="onEdit(user)"><mat-icon>edit</mat-icon></button></td> -->
-            <!-- <td><button type="button" class="btn btn-primary" (click)="onView(user)"><mat-icon>visibility</mat-icon></button></td> -->
             <td><button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button></td>
     
           </tr>
-          
+          <!-- <button mat-raised-button (click)="addData()" class="demo-button">
+            Add data
+          </button> -->
         </tbody>
       </table>
+
+      <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  
+        <ng-container matColumnDef="ts_id" class="tsid">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element" >
+            <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
+          </td>
+        </ng-container>
+      
+   
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let element">
+            <input type="date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >
+          </td>
+        </ng-container>
+      
+
+        <ng-container matColumnDef="project_name">
+          <th mat-header-cell *matHeaderCellDef>Project Name</th>
+          <td mat-cell *matCellDef="let element">
+            <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+                <option  data-hidden="true"></option>
+                <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+              </select>   
+          </td>
+        </ng-container>
+      
+ 
+        <ng-container matColumnDef="task_name">
+          <th mat-header-cell *matHeaderCellDef>Task Name</th>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef>Hours</th>
+            <td mat-cell *matCellDef="let element">
+                <input type="text" [(ngModel)]="user.hours" class="form-control" />
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="save">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button>
+            </td>
+          </ng-container>
+
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        
+      </table>
+
+      
+      <button mat-raised-button (click)="addData()" class="demo-button">
+        Add data
+      </button> -->
     </div>
