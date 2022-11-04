@@ -3,6 +3,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ServiceService } from '../service/service.service';
 import { Router } from '@angular/router';
+import { filter } from 'lodash';
+import { EditableTableComponent } from '../editable-table/editable-table.component';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +18,12 @@ export class HomeComponent implements OnInit {
   todeletedata:any;
   data:any;
   filterValues:any = {};
-  totalhour:any;
-  total=0;    
-  value: any;
+  tabledisplay = false;
+  getEmpname:any;
+  emp_name:any;
+  getProjname:any;
+  projname:any;
+
   logdata =[
     {
       "ts_id":"0",
@@ -34,116 +39,56 @@ export class HomeComponent implements OnInit {
     }]
     isEdit=false;
  
-  displayedColumns: string[] = ['select','week_no', 'date','emp_name', 'project_name', 'task_name','p_type' ,'hours'];
+  displayedColumns: string[] = ['week_no', 'date','emp_name', 'project_name', 'task_name','p_type' ,'hours'];
   
   selection = new SelectionModel<any>(true, []);
 
 
   filterSelectObj :any = [];
 
-  fileName= 'ExcelSheet.xlsx';
-  //  totalhour:any;
+
+  totalhour:any;
+
+  total=0;    
+
+  value: any;
+  totalhourshow=false;
   ngOnInit(): void {
     this.service.fetchAll().subscribe(data=>{
      this.alltimesheetdata = data;
-     this.findsum(this.alltimesheetdata);  
-
+     this.findsum(this.alltimesheetdata);
      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
      this.dataSource.data = this.alltimesheetdata;
-     this.filterSelectObj.filter((o:any) => {
-      o.options = this.getFilterObject(this.alltimesheetdata, o.columnProp);
-    });
-     this.dataSource.filterPredicate = this.createFilter();
+     
     })
+    //getting all employees
+    this.getEmpname = this.service.fetchAllEmployee().subscribe((data:any)=>{
 
-  }
-  findsum(data:any){    
-    debugger  
-    this.value=data    
-    console.log(this.value);  
-    for(let j=0;j<data.length;j++){   
-         this.total+= this.value[j].hours 
-         console.log(this.total)  
-    }  
-  }  
-  constructor(private service:ServiceService,private router:Router){
-    this.filterSelectObj = [
-      {
-        name: 'Employee Name',
-        columnProp: 'emp_name',
-        options: []
-      },
-      {
-        name: 'Project Name',
-        columnProp: 'project_name',
-        options: []
-      },
-      {
-        name: 'Type',
-        columnProp: 'p_type',
-        options: []
-      },
-
-     ]
-
-  }
-
-  filterChange(filter:any, event:any) {
-    //let filterValues = {}
-  
-    this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
-    this.dataSource.filter = JSON.stringify(this.filterValues);
-    console.log(this.filterValues)
-    this.service.getTotalHours(this.filterValues).subscribe((res:any)=>{
-      this.totalhour = res;
-      console.log(res);
-    })
-      console.log(this.totalhour)
-  }
-  createFilter() {
-    let filterFunction = function (data: any, filter: string): boolean {
-      let searchTerms = JSON.parse(filter);
-      let isFilterSet = false;
-      for (const col in searchTerms) {
-        if (searchTerms[col].toString() !== '') {
-          isFilterSet = true;
-        } else {
-          delete searchTerms[col];
-        }
-      }
-
-      // console.log(searchTerms);
-
-      let nameSearch = () => {
-        let found = false;
-        if (isFilterSet) {
-          for (const col in searchTerms) {
-            searchTerms[col].trim().toLowerCase().split(' ').forEach((word:any) => {
-              if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
-                found = true
-              }
-            });
-          }
-          return found
-        } else {
-          return true;
-        }
-      }
-      return nameSearch()
-    }
-    return filterFunction
-  }
-
-  getFilterObject(fullObj:any, key:any) {
-    const uniqChk:any = [];
-    fullObj.filter((obj:any) => {
-      if (!uniqChk.includes(obj[key])) {
-        uniqChk.push(obj[key]);
-      }
-      return obj;
+      // console.log(data);
+    
+      this.emp_name = data;
+    
+      console.log(this.emp_name);
     });
-    return uniqChk;
+    //getting all projects
+    this.getProjname = this.service.fetchAllProject().subscribe((data:any)=>{
+
+      // console.log(data);
+    
+      this.projname = data;
+    
+      console.log(this.projname);
+    });
+   
   }
+  constructor(private service:ServiceService,public router:Router){
+   
+
+  }
+
+ 
+
+ 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -193,7 +138,86 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`/editform`,id])
 
   }
+ 
+  findsum(data:any){    
 
-  
+    debugger  
+
+    this.value=data    
+
+    console.log(this.value);  
+
+    for(let j=0;j<data.length;j++){  
+
+         this.total+= this.value[j].hours
+
+         console.log(this.total)  
+
+    }  
+
+  }
+  //filter by type
+  onChangeType(data:any)
+   {
+    this.tabledisplay = true;
+    console.log(data)
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
+      return item.p_type.toLowerCase() == data.toLowerCase();
+
+    })
+    this.dataSource = new MatTableDataSource(filterData);
+    this.service.getTotalHoursForType(data).subscribe((res)=>{
+      if(res[0].hours!=null)
+      {
+        this.totalhourshow = true;
+        this.totalhour = res;
+        console.log(res);
+      }
+      
+    })
+   
+   }
+     //filter by employee name
+   onChangeEmployeeName(data:any)
+   {
+    console.log(data)
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
+      return item.emp_name.toLowerCase() == data.toLowerCase();
+    })
+    this.dataSource = new MatTableDataSource(filterData);
+    this.service.getTotalHours(data).subscribe((res)=>{
+      if(res[0].hours!=null)
+      {
+       
+        this.totalhourshow = true;
+        this.totalhour = res;
+        
+        console.log(this.totalhour)
+      }
+      
+    })
+   }
+   //filter by project name
+   onChangeProjectName(data:any)
+   {
+    console.log(data.value)
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
+      return item.project_name.toLowerCase() == data.toLowerCase();
+    })
+    this.dataSource = new MatTableDataSource(filterData);
+    this.service.getTotalHoursForProjectName(data).subscribe((res)=>{
+      if(res[0].hours!=null)
+      {
+       this.totalhourshow = true;
+        this.totalhour = res;
+        console.log(res);
+        console.log(this.totalhour)
+      }
+    })
+   }
+   MyValue(value:any)
+   {
+    console.log(value)
+   }
    
 }

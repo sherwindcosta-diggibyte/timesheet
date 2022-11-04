@@ -24,6 +24,9 @@ import { SearchPipe } from './pipe/search.pipe';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { PocTableComponent } from './poc-table/poc-table.component';
 import { HomeComponent } from './home/home.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,9 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatButtonModule
     
   ],
   exports: [

@@ -3,8 +3,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ServiceService } from '../service/service.service';
 import * as XLSX from 'xlsx';
-import * as _ from 'lodash'
 import { Router } from '@angular/router';
+import { filter } from 'lodash';
 // export interface PeriodicElement {
 //   date: string;
 //   project_name: string;
@@ -184,7 +184,7 @@ export class MainTableComponent implements OnInit {
   onChangeType(data:any)
    {
     console.log(data)
-    let filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
       return item.p_type.toLowerCase() == data.toLowerCase();
 
     })
@@ -204,7 +204,7 @@ export class MainTableComponent implements OnInit {
    onChangeEmployeeName(data:any)
    {
     console.log(data)
-    let filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
       return item.emp_name.toLowerCase() == data.toLowerCase();
     })
     this.dataSource = new MatTableDataSource(filterData);
@@ -224,7 +224,7 @@ export class MainTableComponent implements OnInit {
    onChangeProjectName(data:any)
    {
     console.log(data.value)
-    let filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+    let filterData = filter(this.alltimesheetdata,(item:any)=>{
       return item.project_name.toLowerCase() == data.toLowerCase();
     })
     this.dataSource = new MatTableDataSource(filterData);

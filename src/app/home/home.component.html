@@ -1,35 +1,45 @@
 
 
 
-<div class="toolbar float-left">
-<!--   
-    <span>
-      <mat-icon class="editicon" (click)="edit()">edit</mat-icon>
-      Edit
-    </span>
-     <span>
-      <mat-icon class="deleteicon" (click)="delete()">delete</mat-icon>
-      Delete
-    </span> -->
-    <span class="filter">
-      <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
-        <mat-label>Filter By</mat-label>
-        <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
-          (change)="filterChange(filter,$event)">
-          <option value="">-- Select {{filter.name}} --</option>
-          <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
-        </select>
-      </mat-form-field>
-    </span>
-    <!-- <span>
-      <input type="text" value="">
-    </span> -->
-   
-    <span  class="total">Total Hours : {{total}}</span>
+<div class="toolbar float-left"  *ngFor="let user of logdata">
+    <div class="column1">
   
+    <div  class="col-sm-2">
+      <select #typedata (change)="onChangeType(typedata.value)"
+      class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
+      <option  data-hidden="true"></option>  
+      <option value="devops">Devops</option>
+        <option value="developer">Developer</option>
+      </select>
+    </div>
+  
+    <div  class="col-sm-2">
+      <select #employeelist (change)="onChangeEmployeeName(employeelist.value)"
+      class="selectpicker" data-size="5" title="Employee Name" [(ngModel)]="user.emp_name" class="form-control selectpicker"  data-live-search="true">
+      <option  data-hidden="true"></option>
+      <option *ngFor="let name of emp_name" [value]="name.emp_name">{{name.emp_name}}</option>
+    </select>
+    </div>
+  
+    <div  class="col-sm-2">
+    <select #projectlist (change)="onChangeProjectName(projectlist.value)"
+    [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+      <option  data-hidden="true"></option>
+      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+    </select>
+    </div>
+  
+    <button mat-raised-button color="primary"(click)="router.navigate(['/logsheet']);" >LogSheet</button>
+    <ng-container *ngIf="totalhourshow">
+      <span  class="total" *ngFor="let hr of totalhour">Total Hours : {{hr.hours}}</span>
+    </ng-container>
+    <!-- <ng-template #totalhourempty>
+      <span>Total Hours : 0</span>
+    </ng-template> -->
   </div>
-  <div class="container">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="excel-table">
+  </div>
+  <div *ngIf="tabledisplay" class="container">
+  <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="excel-table">
   
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
@@ -99,4 +109,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
+</mat-paginator>
   </div>
+ 
