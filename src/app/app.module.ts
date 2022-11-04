@@ -23,6 +23,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchPipe } from './pipe/search.pipe';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { PocTableComponent } from './poc-table/poc-table.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { PocTableComponent } from './poc-table/poc-table.component';
     MainTableComponent,
     SearchPipe,
     EditFormComponent,
-    PocTableComponent
+    PocTableComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
