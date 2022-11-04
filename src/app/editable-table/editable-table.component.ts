@@ -18,7 +18,9 @@ export class EditableTableComponent implements OnInit {
   getProjname:any;
   projname:any;
   searchTxt: any;
+  dynamicArray: any = [];
 
+  newDynamic:any;
 myDate = new Date();
 
   //  Mon!: 8;
@@ -125,7 +127,7 @@ maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +
     
   ]
   
-  dynamicArray:any = [];
+ 
   displayedColumns: string[] = ['date', 'project_name', 'task_name', 'hours','save'];
   dataSource = this.logdata;
 
@@ -171,6 +173,12 @@ applyFilter(event: Event) {
     this.table.renderRows();
   }
  
+  addRow() {
 
+    this.dynamicArray.push({ id: '', date: '', project_name: '', task_name: '', hours: '' });
+  
+    console.log('New row added successfully', 'New Row');
+  
+  }
   
 }

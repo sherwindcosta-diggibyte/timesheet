@@ -23,8 +23,8 @@ app.use(function(req, res, next) {
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '4sf17cs403',
-    database: 'TIMESHEETS',
+    password: 'vasantha@123',
+    database: 'TIMESHEET',
     multipleStatements: true
 });
 
@@ -86,6 +86,15 @@ app.get('/tbl_fact_timesheet/:id', (req, res) => {
     })
 });
 
+app.get('/hours', (req, res) => {
+    mysqlConnection.query('Select hours, emp_name from tbl_fact_timesheet', (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
 
 
 //Delete Timesheet
@@ -134,16 +143,14 @@ app.put('/tbl_fact_timesheet/:id', (req, res) => {
     })
 
 
-    // app.get('/tbl_fact_timesheet/:emp_name', (req, res) => {
-    //     mysqlConnection.query('SELECT sum(hours) FROM tbl_fact_timesheet WHERE emp_name = ?', [req.body.emp_name], (err, rows, fields) => {
-    //         if (!err)
-    //         {
-    //             console.log(rows);
-    //             res.send(rows);
-               
-    //         }
-    //         else
-    //             console.log(err);
-    //     })
-    // });
 });
+
+app.get('/hoursOfEmployee/:emp_name', (req, res) => {
+    mysqlConnection.query('SELECT sum(hours) FROM tbl_fact_timesheet WHERE emp_name = ?',[req.params.emp_name], (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+

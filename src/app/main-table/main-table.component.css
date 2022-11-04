@@ -6,6 +6,9 @@ table {
   width: 100%;
  
 }
+.total{
+  margin-left: 250px;
+}
 ::ng-deep.mat-form-field-infix {
   display: block;
   position: relative;

@@ -28,7 +28,9 @@ export class MainTableComponent implements OnInit {
   todeletedata:any;
   data:any;
   filterValues:any = {};
-
+  totalhour:any;
+  total=0;    
+  value: any;
   logdata =[
     {
       "ts_id":"0",
@@ -52,10 +54,12 @@ export class MainTableComponent implements OnInit {
   filterSelectObj :any = [];
 
   fileName= 'ExcelSheet.xlsx';
-   totalhour:any;
+  //  totalhour:any;
   ngOnInit(): void {
     this.service.fetchAll().subscribe(data=>{
      this.alltimesheetdata = data;
+     this.findsum(this.alltimesheetdata);  
+
      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
      this.dataSource.data = this.alltimesheetdata;
      this.filterSelectObj.filter((o:any) => {
@@ -63,8 +67,17 @@ export class MainTableComponent implements OnInit {
     });
      this.dataSource.filterPredicate = this.createFilter();
     })
-    
+
   }
+  findsum(data:any){    
+    debugger  
+    this.value=data    
+    console.log(this.value);  
+    for(let j=0;j<data.length;j++){   
+         this.total+= this.value[j].hours 
+         console.log(this.total)  
+    }  
+  }  
   constructor(private service:ServiceService,private router:Router){
     this.filterSelectObj = [
       {
@@ -93,11 +106,11 @@ export class MainTableComponent implements OnInit {
     this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
     this.dataSource.filter = JSON.stringify(this.filterValues);
     console.log(this.filterValues)
-    // this.service.getTotalHours(this.filterValues).subscribe((res:any)=>{
-    //   this.totalhour = res;
-    //   console.log(res);
-    // })
-    //   console.log(this.totalhour)
+    this.service.getTotalHours(this.filterValues).subscribe((res:any)=>{
+      this.totalhour = res;
+      console.log(res);
+    })
+      console.log(this.totalhour)
   }
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {

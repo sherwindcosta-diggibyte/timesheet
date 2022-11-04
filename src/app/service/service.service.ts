@@ -88,9 +88,9 @@ export class ServiceService {
         }
         getTotalHours(emp_name:string):Observable<any>{
 
-          return this.http.get(this.url + '/tbl_fact_timesheet/'+emp_name, {headers: this.header});
+          return this.http.get(this.url + '/hoursOfEmployee/'+emp_name, {headers: this.header});
         
         }
-      
+       
 
 }

@@ -49,93 +49,90 @@
           </tr>
         </thead>
         <tbody>
-          <tr >
+       
+        
+          <tr>
             <td class="tsid">
-                <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
-            </td>
-            <td>
-                <input type="date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >
-            </td>
-            <td>
-             
-                    <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
-                        <option  data-hidden="true"></option>
-                        <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                      </select>            
-             </td>
-            <td>
-                <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+              <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
+          </td>
+          <td>
+            <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
            </td>
+          <td>
+           
+                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+                      <option  data-hidden="true"></option>
+                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+                    </select>            
+           </td>
+          <td>
+              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+         </td>
 
-            <td>
-                <input type="text" [(ngModel)]="user.hours" class="form-control" />
-            </td>
-            <td><button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button></td>
-    
+          <td>
+              <input type="text" [(ngModel)]="user.hours" class="form-control" />
+          </td>
+        
+          </tr> 
+
+
+
+          <tr>
+            <td class="tsid">
+              <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
+          </td>
+          <td>
+            <input type="date" (ngModel)="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
+           </td>
+          <td>
+           
+                  <select (ngModel)="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+                      <option  data-hidden="true"></option>
+                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+                    </select>            
+           </td>
+          <td>
+              <input type="text" (ngModel)="user.task_name" class="form-control" />
+         </td>
+
+          <td>
+              <input type="text" (ngModel)="user.hours" class="form-control" />
+          </td>
+        
+          </tr> 
+          
+           <tr  *ngFor="let dynamic of dynamicArray; let i = index;">
+            <td class="tsid">
+              <input type="text" [(ngModel)]="user.ts_id" class="form-control"   />
+          </td>
+          <td>
+
+          <input type="date" (ngModel)="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
+
+        </td>
+          <td>
+           
+                  <select (ngModel)="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
+                      <option  data-hidden="true"></option>
+                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+                    </select>            
+           </td>
+          <td>
+              <input type="text" (ngModel)="user.task_name" class="form-control" />
+         </td>
+
+          <td>
+              <input type="text" (ngModel)="user.hours" class="form-control" />
+          </td>
+        
           </tr>
-          <!-- <button mat-raised-button (click)="addData()" class="demo-button">
-            Add data
-          </button> -->
+          
         </tbody>
       </table>
-
-      <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-  
-        <ng-container matColumnDef="ts_id" class="tsid">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let element" >
-            <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
-          </td>
-        </ng-container>
-      
-   
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let element">
-            <input type="date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >
-          </td>
-        </ng-container>
       
 
-        <ng-container matColumnDef="project_name">
-          <th mat-header-cell *matHeaderCellDef>Project Name</th>
-          <td mat-cell *matCellDef="let element">
-            <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
-                <option  data-hidden="true"></option>
-                <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-              </select>   
-          </td>
-        </ng-container>
-      
- 
-        <ng-container matColumnDef="task_name">
-          <th mat-header-cell *matHeaderCellDef>Task Name</th>
-          <td mat-cell *matCellDef="let element">
-            <input type="text" [(ngModel)]="user.task_name" class="form-control" />
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="hours">
-            <th mat-header-cell *matHeaderCellDef>Hours</th>
-            <td mat-cell *matCellDef="let element">
-                <input type="text" [(ngModel)]="user.hours" class="form-control" />
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="save">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button>
-            </td>
-          </ng-container>
+      <button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button>
+      <button class="addrow" type="button" (click)="addRow()">Add Row</button>
 
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        
-      </table>
-
-      
-      <button mat-raised-button (click)="addData()" class="demo-button">
-        Add data
-      </button> -->
+    
     </div>
