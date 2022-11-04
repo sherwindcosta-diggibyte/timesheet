@@ -4,14 +4,14 @@
 <div class="toolbar float-left"  *ngFor="let user of logdata">
     <div class="column1">
   
-    <div  class="col-sm-2">
+    <!-- <div  class="col-sm-2">
       <select #typedata (change)="onChangeType(typedata.value)"
       class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
       <option  data-hidden="true"></option>  
       <option value="devops">Devops</option>
         <option value="developer">Developer</option>
       </select>
-    </div>
+    </div> -->
   
     <div  class="col-sm-2">
       <select #employeelist (change)="onChangeEmployeeName(employeelist.value)"
@@ -21,15 +21,15 @@
     </select>
     </div>
   
-    <div  class="col-sm-2">
+    <!-- <div  class="col-sm-2">
     <select #projectlist (change)="onChangeProjectName(projectlist.value)"
     [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
       <option  data-hidden="true"></option>
       <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
     </select>
-    </div>
+    </div> -->
   
-    <button mat-raised-button color="primary"(click)="router.navigate(['/logsheet']);" >LogSheet</button>
+   <a href="/logsheet"><button mat-raised-button color="primary">LogSheet</button></a> 
     <ng-container *ngIf="totalhourshow">
       <span  class="total" *ngFor="let hr of totalhour">Total Hours : {{hr.hours}}</span>
     </ng-container>
@@ -109,8 +109,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+  <mat-paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
-</mat-paginator>
+  </mat-paginator>
   </div>
  

@@ -59,11 +59,10 @@
             <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
            </td>
           <td>
-           
-                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
-                      <option  data-hidden="true"></option>
-                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                    </select>            
+            <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+              <option  data-hidden="true"></option>
+              <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+            </select>            
            </td>
           <td>
               <input type="text" [(ngModel)]="user.task_name" class="form-control" />
@@ -82,21 +81,21 @@
               <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
           </td>
           <td>
-            <input type="date" (ngModel)="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
+            <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
            </td>
           <td>
            
-                  <select (ngModel)="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
                       <option  data-hidden="true"></option>
                       <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
                     </select>            
            </td>
           <td>
-              <input type="text" (ngModel)="user.task_name" class="form-control" />
+              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
          </td>
 
           <td>
-              <input type="text" (ngModel)="user.hours" class="form-control" />
+              <input type="text" [(ngModel)]="user.hours" class="form-control" />
           </td>
         
           </tr> 
@@ -107,22 +106,22 @@
           </td>
           <td>
 
-          <input type="date" (ngModel)="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
+          <input type="date" [(ngModel)]="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
 
         </td>
           <td>
            
-                  <select (ngModel)="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
+                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
                       <option  data-hidden="true"></option>
                       <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
                     </select>            
            </td>
           <td>
-              <input type="text" (ngModel)="user.task_name" class="form-control" />
+              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
          </td>
 
           <td>
-              <input type="text" (ngModel)="user.hours" class="form-control" />
+              <input type="text" [(ngModel)]="user.hours" class="form-control" />
           </td>
         
           </tr>
@@ -131,7 +130,7 @@
       </table>
       
 
-      <button type="button" class="btn btn-primary" (click)="addUser(user)"><mat-icon>save</mat-icon></button>
+      <button type="button" class="btn btn-primary" (click)="addUser(user)">Save</button>
       <button class="addrow" type="button" (click)="addRow()">Add Row</button>
 
     

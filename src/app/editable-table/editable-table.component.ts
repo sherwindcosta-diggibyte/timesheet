@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { ServiceService } from '../service/service.service';
-import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
+
 import { MatTable } from '@angular/material/table';
 
 @Component({
@@ -120,12 +120,9 @@ maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +
       "project_name": "",
       "task_name": "",
       "hours": "",
-     
-
     },
     
-    
-  ]
+]
   
  
   displayedColumns: string[] = ['date', 'project_name', 'task_name', 'hours','save'];
@@ -157,6 +154,7 @@ item.isEdit = true;
   addUser(data:any)
   {
     console.log(data)
+
     this.service.addUser(data).subscribe((res)=>{
       console.log(res);
     })

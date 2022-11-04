@@ -66,7 +66,7 @@ export class ServiceService {
         );
 
        }
-       addUser(userObj:any):Observable<any>{
+       addUser(userObj:any=[]):Observable<any>{
 
         return this.http.post(this.url + '/tbl_fact_timesheet', userObj,{headers: this.header});
   

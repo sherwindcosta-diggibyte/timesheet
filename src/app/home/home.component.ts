@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ServiceService } from '../service/service.service';
 import { Router } from '@angular/router';
 import { filter } from 'lodash';
 import { EditableTableComponent } from '../editable-table/editable-table.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
@@ -53,13 +54,14 @@ export class HomeComponent implements OnInit {
 
   value: any;
   totalhourshow=false;
+  @ViewChild(MatPaginator)paginator!: MatPaginator;
   ngOnInit(): void {
     this.service.fetchAll().subscribe(data=>{
      this.alltimesheetdata = data;
      this.findsum(this.alltimesheetdata);
      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
      this.dataSource.data = this.alltimesheetdata;
-     
+     this.dataSource.paginator = this.paginator;
     })
     //getting all employees
     this.getEmpname = this.service.fetchAllEmployee().subscribe((data:any)=>{
@@ -180,6 +182,7 @@ export class HomeComponent implements OnInit {
      //filter by employee name
    onChangeEmployeeName(data:any)
    {
+    this.tabledisplay = true;
     console.log(data)
     let filterData = filter(this.alltimesheetdata,(item:any)=>{
       return item.emp_name.toLowerCase() == data.toLowerCase();
@@ -200,6 +203,7 @@ export class HomeComponent implements OnInit {
    //filter by project name
    onChangeProjectName(data:any)
    {
+    this.tabledisplay = true;
     console.log(data.value)
     let filterData = filter(this.alltimesheetdata,(item:any)=>{
       return item.project_name.toLowerCase() == data.toLowerCase();

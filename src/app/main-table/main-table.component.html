@@ -25,7 +25,7 @@
   <div  class="col-sm-2">
     <select #typedata (change)="onChangeType(typedata.value)"
     class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
-    <option  data-hidden="true"></option>  
+    <option value="none" selected disabled hidden>Select an Option</option> 
     <option value="devops">Devops</option>
       <option value="developer">Developer</option>
     </select>
