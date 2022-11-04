@@ -23,8 +23,8 @@ app.use(function(req, res, next) {
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'vasantha@123',
-    database: 'TIMESHEET',
+    password: '4sf17cs403',
+    database: 'TIMESHEETS',
     multipleStatements: true
 });
 
@@ -146,11 +146,47 @@ app.put('/tbl_fact_timesheet/:id', (req, res) => {
 });
 
 app.get('/hoursOfEmployee/:emp_name', (req, res) => {
-    mysqlConnection.query('SELECT sum(hours) FROM tbl_fact_timesheet WHERE emp_name = ?',[req.params.emp_name], (err, rows, fields) => {
-        if (!err)
-            res.send(rows);
-        else
-            console.log(err);
-    })
-});
 
+    mysqlConnection.query('SELECT sum(hours) as hours FROM tbl_fact_timesheet WHERE emp_name = ?',[req.params.emp_name], (err, rows, fields) => {
+
+        if (!err)
+
+            res.send(rows);
+
+        else
+
+            console.log(err);
+
+    })
+
+});
+app.get('/hoursOfType/:p_type', (req, res) => {
+
+    mysqlConnection.query('SELECT sum(hours) as hours FROM tbl_fact_timesheet WHERE p_type = ?',[req.params.p_type], (err, rows, fields) => {
+
+        if (!err)
+
+            res.send(rows);
+
+        else
+
+            console.log(err);
+
+    })
+
+});
+app.get('/hoursOfProject/:project_name', (req, res) => {
+
+    mysqlConnection.query('SELECT sum(hours) as hours FROM tbl_fact_timesheet WHERE project_name = ?',[req.params.project_name], (err, rows, fields) => {
+
+        if (!err)
+
+            res.send(rows);
+
+        else
+
+            console.log(err);
+
+    })
+
+});

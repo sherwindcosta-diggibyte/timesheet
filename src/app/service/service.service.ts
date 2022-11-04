@@ -88,9 +88,18 @@ export class ServiceService {
         }
         getTotalHours(emp_name:string):Observable<any>{
 
-          return this.http.get(this.url + '/hoursOfEmployee/'+emp_name, {headers: this.header});
+          return this.http.get(this.url + '/hoursOfEmployee/' +emp_name,  {responseType: "json"});
         
         }
-       
+        getTotalHoursForType(p_type:string):Observable<any>{
+
+          return this.http.get(this.url + '/hoursOfType/' +p_type,  {responseType: "json"});
+        
+        }
+        getTotalHoursForProjectName(project_name:string):Observable<any>{
+
+          return this.http.get(this.url + '/hoursOfProject/' +project_name,  {responseType: "json"});
+        
+        }
 
 }
