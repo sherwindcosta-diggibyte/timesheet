@@ -26,6 +26,7 @@ import { PocTableComponent } from './poc-table/poc-table.component';
 import { HomeComponent } from './home/home.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
+import { EditableTable1Component } from './editable-table1/editable-table1.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MatButtonModule} from '@angular/material/button';
     SearchPipe,
     EditFormComponent,
     PocTableComponent,
-    HomeComponent
+    HomeComponent,
+    EditableTable1Component
   ],
   imports: [
     BrowserModule,
