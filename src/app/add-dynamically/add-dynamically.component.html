@@ -1,5 +1,5 @@
 
-<div class="container">  
+<!-- <div class="container">  
     
     <h1> Dynamically Add New Input Fields in Angular </h1>  
       
@@ -36,14 +36,14 @@
                 <th scope="col">Hours</th>  
                 <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>  
             </tr>
-        </thead>  
+        </thead>   -->
         <!-- <tr>
             <td>
                 <input type="date" formControlName="date" class="form-control">  
             </td>
             
         </tr> -->
-        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">  
+        <!-- <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">  
           <td>
               <input type="date" formControlName="date" class="form-control">  
           </td>
@@ -71,5 +71,5 @@
         
     <br/>  
     {{this.productForm.value | json}}  
-  </div>  
+  </div>   -->
   

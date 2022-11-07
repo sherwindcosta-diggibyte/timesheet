@@ -59,7 +59,7 @@ export class AddDynamicallyComponent implements OnInit {
   newQuantity(): FormGroup {  
     return this.fb.group({      
       date: '',  
-      projname: [''],
+      projname: '',
       task_name: '',
       hours: ''
     })  
