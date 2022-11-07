@@ -33,10 +33,6 @@ export class AddDynamicallyComponent implements OnInit {
 
   constructor(private fb:FormBuilder, private service:ServiceService) {  
     this.productForm = this.fb.group({  
-      emp_name: '',
-      name: '',  
-      position: '',
-      weeks: '',
       quantities: this.fb.array([]) ,  
     });  
   }  
@@ -58,10 +54,14 @@ export class AddDynamicallyComponent implements OnInit {
      
   newQuantity(): FormGroup {  
     return this.fb.group({      
+      emp_name: '',
+      name: '',  
+      position: '',
+      weeks: '',
       date: '',  
       projname: '',
       task_name: '',
-      hours: ''
+      hours: '',
     })  
   }  
      
