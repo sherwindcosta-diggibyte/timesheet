@@ -27,6 +27,7 @@ import { HomeComponent } from './home/home.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
+import { EditableTable1Component } from './editable-table1/editable-table1.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,7 @@ import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.compo
     SearchPipe,
     EditFormComponent,
     PocTableComponent,
-    HomeComponent,
-    AddDynamicallyComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

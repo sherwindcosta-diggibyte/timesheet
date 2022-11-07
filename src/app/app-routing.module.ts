@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { EditableTableComponent } from './editable-table/editable-table.component';
+import { EditableTable1Component } from './editable-table1/editable-table1.component';
 import { HomeComponent } from './home/home.component';
 import { MainTableComponent } from './main-table/main-table.component';
 import { PocTableComponent } from './poc-table/poc-table.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
 {
   path: 'addrows',
   component: AddDynamicallyComponent
-}
+},
+{path:'logsheet1',component:EditableTable1Component}
 
 ];
 
