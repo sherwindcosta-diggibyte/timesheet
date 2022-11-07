@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { EditableTableComponent } from './editable-table/editable-table.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +12,11 @@ const routes: Routes = [
   {path:'logsheet',component:EditableTableComponent},
 {path:'editform/:id',component:EditFormComponent},
 {path:'poc',component:PocTableComponent},
-{path:'home',component:HomeComponent}
+{path:'home',component:HomeComponent},
+{
+  path: 'addrows',
+  component: AddDynamicallyComponent
+}
 
 ];
 

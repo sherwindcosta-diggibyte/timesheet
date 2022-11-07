@@ -1,0 +1,75 @@
+
+<div class="container">  
+    
+    <h1> Dynamically Add New Input Fields in Angular </h1>  
+      
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">  
+    <div>
+        <div class="column1">
+            <div class="col-sm-2">
+                <select name="emp_name" id="emp_name" formControlName="emp_name" class="selectpicker">
+                    <option value="" *ngFor="let e of logdata" [ngValue]="e.emp_name">{{e.emp_name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select name="position" id="position" formControlName="position" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                    <option  data-hidden="true"></option>
+                    <option value="devops">Devops</option>
+                    <option value="Developer">Developer</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select name="weeks" id="weeks" data-size="5" formControlName="weeks" title="Week" class="form-control selectpicker"  data-live-search="true">
+                    <option data-hidden="true"></option>
+                    <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+      
+    <table class="table table-responsive table-striped table-hover table-bordered" formArrayName="quantities">  
+        <thead>
+            <tr>  
+                <th scope="col">Date</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Task Name</th>
+                <th scope="col">Hours</th>  
+                <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>  
+            </tr>
+        </thead>  
+        <!-- <tr>
+            <td>
+                <input type="date" formControlName="date" class="form-control">  
+            </td>
+            
+        </tr> -->
+        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">  
+          <td>
+              <input type="date" formControlName="date" class="form-control">  
+          </td>
+          <td>
+              <select name="projname" id="projname" data-size="5" formControlName="projname" title="Project name" class="form-control selectpicker"  data-live-search="true">
+                <ng-container *ngFor="let p of proname" >
+                    <option data-hidden="true"></option>
+                    <option [ngValue]="p.project_name">{{p.project_name}}</option>
+                </ng-container>
+                </select>
+          </td>  
+          <td>      
+              <input type="text" formControlName="task_name" class="form-control">  
+          </td>  
+            <td>
+            <input type="text" formControlName="hours" class="form-control">  
+            </td>  
+          <td>  
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>  
+          </td>  
+        </tr>  
+      </table>  
+        <button type="submit" class="btn btn-success">Submit</button>    
+    </form>  
+        
+    <br/>  
+    {{this.productForm.value | json}}  
+  </div>  
+  

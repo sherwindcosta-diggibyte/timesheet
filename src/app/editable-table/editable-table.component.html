@@ -1,47 +1,37 @@
-<div  *ngFor="let user of logdata">
-
-    
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <div  *ngFor="let user of logdata">
     <div class="column1">
-        
-
-            <div  class="col-sm-2">
-        
-            <select class="selectpicker" data-size="5" title="Employee Name" [(ngModel)]="user.emp_name" class="form-control selectpicker"  data-live-search="true" >
-                <option  data-hidden="true"></option>
-              <option *ngFor="let name of emp_name" [value]="name.emp_name">
+      <div  class="col-sm-2"> 
+        <select class="selectpicker" data-size="5" title="Employee Name" name="emp_name" class="form-control selectpicker"  data-live-search="true" formControlName="emp_name">
+          <option  data-hidden="true"></option>
+          <option *ngFor="let name of emp_name">
                 {{name.emp_name}}
-              </option>
-            </select>
-        </div>
+          </option>
+        </select>
+      </div>
           
-            <div  class="col-sm-2">
+          <div  class="col-sm-2">
             <select [(ngModel)]="user.p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
-                <option  data-hidden="true"></option>
-                <option value="devops">Devops</option>
+              <option  data-hidden="true"></option>
+              <option value="devops">Devops</option>
               <option value="Developer">Developer</option>
             </select>
-       
-            </div>
-       
-            <div  class="col-sm-2">
-            <select [(ngModel)]="user.week_no" class="selectpicker" data-size="5" title="Week" class="form-control selectpicker"  data-live-search="true">
-                <option  data-hidden="true"></option>
-              <option *ngFor="let weeks of week_no" [value]="weeks">
-              
-                Week - {{weeks}}
-            </option>
-            </select>
-            </div>
-         
-
-    </div>
-
-    
-    <table  class="table table-striped table-hover table-bordered table-responsive">
-       
-        <thead>
-          <tr>
+          </div>
           
+          <div  class="col-sm-2">
+            <select [(ngModel)]="user.week_no" class="selectpicker" data-size="5" title="Week" class="form-control selectpicker"  data-live-search="true">
+            <option  data-hidden="true"></option>
+            <option *ngFor="let weeks of week_no" [value]="weeks">
+              Week - {{weeks}}
+            </option>
+          </select>
+        </div>
+      </div>
+      
+      
+      <table  class="table table-striped table-hover table-bordered table-responsive">
+        <thead>
+          <tr> 
             <th scope="col">Date</th>
             <th scope="col">Project Name</th>
             <th scope="col">Task Name</th>
@@ -49,89 +39,110 @@
           </tr>
         </thead>
         <tbody>
-       
-        
           <tr>
             <td class="tsid">
               <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
+            </td>
+            <td>
+              <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
+            </td>
+            <td>
+            <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+              <ng-container>
+                <option  data-hidden="true"></option>
+                <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+              </ng-container>
+            </select>            
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="user.hours" class="form-control" />
+          </td>
+        </tr>   
+        <tr>
+          <td class="tsid">
+            <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
           </td>
           <td>
             <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
-           </td>
+          </td>
           <td>
             <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
               <option  data-hidden="true"></option>
               <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
             </select>            
-           </td>
-          <td>
-              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
-         </td>
-
-          <td>
-              <input type="text" [(ngModel)]="user.hours" class="form-control" />
-          </td>
-        
-          </tr> 
-
-
-
-          <tr>
-            <td class="tsid">
-              <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
           </td>
           <td>
-            <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
-           </td>
-          <td>
-           
-                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
-                      <option  data-hidden="true"></option>
-                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                    </select>            
-           </td>
-          <td>
-              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
-         </td>
-
-          <td>
-              <input type="text" [(ngModel)]="user.hours" class="form-control" />
+            <input type="text" [(ngModel)]="user.task_name" class="form-control" />
           </td>
-        
-          </tr> 
+          <td>
+            <input type="text" [(ngModel)]="user.hours" class="form-control" />
+          </td>
           
+        </tr> 
+        
            <tr  *ngFor="let dynamic of dynamicArray; let i = index;">
-            <td class="tsid">
-              <input type="text" [(ngModel)]="user.ts_id" class="form-control"   />
-          </td>
-          <td>
-
-          <input type="date" [(ngModel)]="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
-
-        </td>
-          <td>
-           
-                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
-                      <option  data-hidden="true"></option>
-                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                    </select>            
-           </td>
-          <td>
-              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+             <td class="tsid">
+               <input type="text" [(ngModel)]="user.ts_id" class="form-control"   />
+              </td>
+              <td>
+                
+                <input type="date" [(ngModel)]="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
+                
+              </td>
+              <td>
+                
+                <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
+                  <option  data-hidden="true"></option>
+                  <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+                </select>            
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="user.task_name" class="form-control" />
          </td>
-
+         
           <td>
               <input type="text" [(ngModel)]="user.hours" class="form-control" />
-          </td>
-        
+            </td>
+            
           </tr>
           
         </tbody>
       </table>
       
-
+      
       <button type="button" class="btn btn-primary" (click)="addUser(user)">Save</button>
-      <button class="addrow" type="button" (click)="addRow()">Add Row</button>
-
-    
+      <button class="addrow" type="button" (click)="addTaskList() ">Add Row</button>
+      
+      
     </div>
+  </form>
+
+  
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <table  class="table table-striped table-hover table-bordered table-responsive">  
+        <!-- <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Project Name</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Hours</th>
+          </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let t of taskList().controls; let i = index" [formGroupName] = "i">
+            <td >
+              <input type="date" class="form-control" id="date" name="date" formControlName="date" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
+            </td>
+            <td>
+              <input type="text" id="name" class="form-control" formControlName="task_name"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </form>
+   {{this.taskForm.value | json}}
+
