@@ -26,7 +26,10 @@ import { PocTableComponent } from './poc-table/poc-table.component';
 import { HomeComponent } from './home/home.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
+import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
 import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.component';
+// import { EditableTable1Component } from './editable-table1/editable-table1.component';
+// import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.component';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.com
     EditFormComponent,
     PocTableComponent,
     HomeComponent,
-    AddDynamicDataComponent
+    AddDynamicDataComponent,
+    AddDynamicallyComponent
   ],
   imports: [
     BrowserModule,

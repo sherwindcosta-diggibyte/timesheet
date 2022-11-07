@@ -1,18 +1,16 @@
-
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { ServiceService } from '../service/service.service';
-
+import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-editable-table',
-  templateUrl: './editable-table.component.html',
-  styleUrls: ['./editable-table.component.css']
+  selector: 'app-editable-table1',
+  templateUrl: './editable-table1.component.html',
+  styleUrls: ['./editable-table1.component.css']
 })
-export class EditableTableComponent implements OnInit {
+export class EditableTable1Component implements OnInit {
 
   getEmpname:any;
   emp_name:any;
@@ -22,7 +20,7 @@ export class EditableTableComponent implements OnInit {
   dynamicArray: any = [];
 
   newDynamic:any;
-  myDate = new Date();
+myDate = new Date();
 
   //  Mon!: 8;
   
@@ -30,7 +28,6 @@ export class EditableTableComponent implements OnInit {
   TotalHours!:any;
   public fieldArray: Array<any> = [];
   public newAttribute: any = {};
-
 
   currentTime = new Date();
 
@@ -40,7 +37,9 @@ minDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth(), 
 
 maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +1, +0);
 
- 
+  constructor(public datepipe: DatePipe, private service:ServiceService,private formbuilder:FormBuilder) { 
+
+  }
   // formData:FormGroup=this.fb.group({
   //   ts_id:new FormControl(''),
   //   emp_name:new FormControl(''),
@@ -109,105 +108,91 @@ maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +
     "52",
 ]
 
-  logdata =[
-    {
-      "ts_id":"0",
-      "emp_name":"",
-      "p_type":"",
-      "week_no":"",
+  // logdata =[
+  //   {
+  //     "ts_id":"0",
+  //     "emp_name":"",
+  //     "p_type":"",
+  //     "week_no":"",
      
-      "date":"",
-      "project_name": "",
-      "task_name": "",
-      "hours": "",
-    },
+  //     "date":"",
+  //     "project_name": "",
+  //     "task_name": "",
+  //     "hours": "",
+     
+
+  //   },
     
-]
-// get current month  getMonth(), +1 means getting current month
-
-
-  taskForm: FormGroup;
-
-  constructor(public datepipe: DatePipe, private service:ServiceService,private fb: FormBuilder) { 
-    this.taskForm = this.fb.group({
-      // ts_id:"0",
-      // emp_name:"",
-      // p_type:"",
-      // week_no:"",
-      taskList: this.fb.array([]),
-    })
-  }
-
-  taskList() : FormArray {
-    return this.taskForm.get("taskList") as FormArray;
-  }
-
-  newTaskList(): FormGroup {
-    return this.fb.group(
-      {
-        date:'',
-        project_name: '',
-        task_name: '',
-        hours: '',
-      }
-    )
-  }
-
-  addTaskList() {
-    this.taskList().push(this.newTaskList());
-  }
-
-  removeTaskList(i: number) {
-    this.taskList().removeAt(i);
-  }
-
-  onSubmit() {
-    console.log(this.taskForm.value)
-  }
-
+    
+  // ]
+  
+ 
   displayedColumns: string[] = ['date', 'project_name', 'task_name', 'hours','save'];
-  dataSource = this.logdata;
+  // dataSource = this.logdata;
+
+  logdata!:FormGroup
 
   @ViewChild(MatTable) table!: MatTable<any>;
   ngOnInit(): void {
+
+    this.logdata = this.formbuilder.group({
+      ts_id:[0],
+      emp_name:[''],
+      p_type:[''],
+      week_no:[''],
+      date:[''],
+      project_name:[''],
+      task_name:[''],
+      hours:[''],
+    },
+    )
+    
+
     this.getEmpname = this.service.fetchAllEmployee().subscribe((data:any)=>{
+
       // console.log(data);
+    
       this.emp_name = data;
+    
       console.log(this.emp_name);
     });
     this.getProjname = this.service.fetchAllProject().subscribe((data:any)=>{
-    // console.log(data);
+
+      // console.log(data);
+    
       this.projname = data;
+    
       console.log(this.projname);
     });
   }
-
   onEdit(item:any){
-    item.isEdit = true;
+item.isEdit = true;
   }
-
   addUser(data:any)
   {
-    console.log(data)
-    this.service.addUser(data).subscribe((res)=>{
+    console.log(data.value)
+    this.service.addUser(data.value).subscribe((res)=>{
       console.log(res);
     })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.emp_name.filter = filterValue.trim().toLowerCase();
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.emp_name.filter = filterValue.trim().toLowerCase();
+ 
   }
-
   // addData() {
   //   const randomElementIndex = Math.floor(Math.random() * this.logdata.length);
   //   this.dataSource.push(this.logdata[randomElementIndex]);
   //   this.table.renderRows();
   // }
  
-  // addRow() {
-  //   this.dynamicArray.push({ id: '', date: '', project_name: '', task_name: '', hours: '' });
-  //   console.log('New row added successfully', 'New Row');
-  // }
+  addRow() {
+
+    this.dynamicArray.push({ id: '', date: '', project_name: '', task_name: '', hours: '' });
+  
+    console.log('New row added successfully', 'New Row');
+  
+  }
   
 }

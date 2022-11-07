@@ -107,6 +107,16 @@ app.delete('/tbl_fact_timesheet/:id', (req, res) => {
     })
 });
 
+// var valuesNestedArray  = [];
+
+// for(var v in values ) {
+//   valuesNestedArray.push([values[v]]);
+// }
+
+// var sql = "INSERT IGNORE INTO technologies (technologyname) values ?";
+// connection.query(sql, [valuesNestedArray], function(err) {
+//     if (err) throw err;   
+// });
 
 //Insert data in Timesheet table
 // app.post('/tbl_fact_timesheet', (req, res) => {
