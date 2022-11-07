@@ -30,6 +30,7 @@ myDate = new Date();
   public fieldArray: Array<any> = [];
   public newAttribute: any = {};
 
+
   currentTime = new Date();
 
 // get current month  getMonth(), +1 means getting current month
@@ -54,7 +55,7 @@ maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +
   
   // })
 
-  week_no=[
+  week_no:any=[
     "1",
     "2",
     "3",
@@ -109,7 +110,7 @@ maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +
     "52",
 ]
 
-  logdata =[
+  logdata:any =[
     {
       "ts_id":"0",
       "emp_name":"",

@@ -25,7 +25,8 @@
   <div  class="col-sm-2">
     <select #typedata (change)="onChangeType(typedata.value)"
     class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
-    <option value="none" selected disabled hidden>Select an Option</option> 
+    <option  data-hidden="true"></option>
+    <option value="all">All</option>
     <option value="devops">Devops</option>
       <option value="developer">Developer</option>
     </select>
@@ -35,6 +36,7 @@
     <select #employeelist (change)="onChangeEmployeeName(employeelist.value)"
     class="selectpicker" data-size="5" title="Employee Name" [(ngModel)]="user.emp_name" class="form-control selectpicker"  data-live-search="true">
     <option  data-hidden="true"></option>
+    <option value="all">All</option>
     <option *ngFor="let name of emp_name" [value]="name.emp_name">{{name.emp_name}}</option>
   </select>
   </div>
@@ -43,23 +45,25 @@
   <select #projectlist (change)="onChangeProjectName(projectlist.value)"
   [(ngModel)]="user.project_name" class="selectpicker" data-size="5" title="Project Name" class="form-control selectpicker"  data-live-search="true">
     <option  data-hidden="true"></option>
+    <option value="all">All</option>
     <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
   </select>
   </div>
-
+  <!-- <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button> -->
   <span class="">
     <button class="btn-primary exportButton" (click)="exportexcel()">Export</button>
   </span>
-  <ng-container *ngIf="totalhourshow">
-    <span  class="total" *ngFor="let hr of totalhour">Total Hours : {{hr.hours}}</span>
+  <ng-container  *ngIf="totalhourshow;else calculatedhour">
+    <span  class="total">Total Hours : {{total}} </span>
   </ng-container>
-  <!-- <ng-template #totalhourempty>
-    <span>Total Hours : 0</span>
-  </ng-template> -->
+  <ng-template #calculatedhour>
+    <span  class="total" *ngFor="let hr of totalhour">Total Hours : {{hr.hours}}</span>
+  </ng-template>
+  
 </div>
 </div>
 <div class="container">
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="excel-table">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="excel-table" *ngIf="dataSource.data.length!=0;else emptydata">
 
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
@@ -129,4 +133,10 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator length="dataSource.data.length" pageIndex="0" pageSize="5"
+[pageSizeOptions]="[5, 10, 20]" aria-label="Select page" showFirstLastButtons >
+</mat-paginator>
+<ng-template #emptydata>
+  <h2 class="noData">No Data Found</h2>
+</ng-template>
 </div>
