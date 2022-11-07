@@ -109,21 +109,21 @@ app.delete('/tbl_fact_timesheet/:id', (req, res) => {
 
 
 //Insert data in Timesheet table
-app.post('/tbl_fact_timesheet', (req, res) => {
-    let tsdata = req.body;
+// app.post('/tbl_fact_timesheet', (req, res) => {
+//     let tsdata = req.body;
 
-    var sql = "SET @ts_id = ?;SET @week_no = ?;SET @date = ?;SET @emp_name = ?;SET @project_name = ?;SET @task_name = ?;SET @hours = ?;SET @p_type = ?; \
-    CALL TimeSheetAddOrEdit(@ts_id, @week_no, @date, @emp_name, @project_name, @task_name, @hours, @p_type);";
-    mysqlConnection.query(sql, [tsdata.ts_id, tsdata.week_no, tsdata.date, tsdata.emp_name, tsdata.project_name, tsdata.task_name, tsdata.hours, tsdata.p_type], (err, rows, fields) => {
-        if (!err)
-            rows.forEach(element => {
-                if(element.constructor == Array)
-                res.send('Inserted data : '+ tsdata.ts_id);
-            });
-        else
-            console.log(err);
-    })
-});
+//     var sql = "SET @ts_id = ?;SET @week_no = ?;SET @date = ?;SET @emp_name = ?;SET @project_name = ?;SET @task_name = ?;SET @hours = ?;SET @p_type = ?; \
+//     CALL TimeSheetAddOrEdit(@ts_id, @week_no, @date, @emp_name, @project_name, @task_name, @hours, @p_type);";
+//     mysqlConnection.query(sql, [tsdata.ts_id, tsdata.week_no, tsdata.date, tsdata.emp_name, tsdata.project_name, tsdata.task_name, tsdata.hours, tsdata.p_type], (err, rows, fields) => {
+//         if (!err)
+//             rows.forEach(element => {
+//                 if(element.constructor == Array)
+//                 res.send('Inserted data : '+ tsdata.ts_id);
+//             });
+//         else
+//             console.log(err);
+//     })
+// });
 
 
 //Update data in Timesheet table
@@ -189,4 +189,29 @@ app.get('/hoursOfProject/:project_name', (req, res) => {
 
     })
 
+});
+app.get('/getempname/:emp_name', (req, res) => {
+
+    mysqlConnection.query('SELECT * FROM tbl_fact_timesheet WHERE emp_name = ?',[req.params.emp_name], (err, rows, fields) => {
+
+        if (!err)
+
+            res.send(rows);
+
+        else
+
+            console.log(err);
+
+    })
+
+});
+//Insert multidata in Timesheet table
+
+app.post('/tbl_fact_timesheet', (req, res) => {
+const items = req.body;
+mysqlConnection.query(
+`INSERT INTO tbl_fact_timesheet(week_no, date, emp_name, project_name, task_name, hours, p_type) VALUES ?`,
+  [items.map(item => [item.week_no, item.date, item.emp_name, item.project_name, item.task_name, item.hours, item.p_type])],
+  (error, results) => {}
+);
 });
