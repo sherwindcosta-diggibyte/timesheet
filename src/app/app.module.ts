@@ -37,7 +37,9 @@ import { EditableTable1Component } from './editable-table1/editable-table1.compo
     SearchPipe,
     EditFormComponent,
     PocTableComponent,
-    HomeComponent
+    HomeComponent,
+    AddDynamicallyComponent,
+    EditableTable1Component
   ],
   imports: [
     BrowserModule,
