@@ -1,29 +1,27 @@
 
 <div class="container">  
-    
-    <h1> Dynamically Add New Input Fields in Angular </h1>  
       
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">  
     <div>
         <div class="column1">
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
                 <select name="emp_name" id="emp_name" formControlName="emp_name" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
                     <option value="" *ngFor="let e of logdata"   [ngValue]="e.emp_name">{{e.emp_name}}</option>
                 </select>
-            </div>
-            <div class="col-sm-2">
+            </div> -->
+            <!-- <div class="col-sm-2">
                 <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
                     <option  data-hidden="true"></option>
                     <option value="devops">Devops</option>
                     <option value="Developer">Developer</option>
                 </select>
-            </div>
-            <div class="col-sm-2">
+            </div> -->
+            <!-- <div class="col-sm-2">
                 <select name="week_no" id="week_no" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
                     <option data-hidden="true"></option>
                     <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </div>
       
@@ -37,7 +35,34 @@
                 <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>  
             </tr>
         </thead>   
-        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">  
+        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i"> 
+            <td>
+                <div class="col-sm-2">
+                    <select name="emp_name" id="emp_name" formControlName="emp_name" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                        <option value="" *ngFor="let e of logdata"   [ngValue]="e.emp_name">{{e.emp_name}}</option>
+                    </select>
+                </div>
+            </td> 
+            <td>
+                <div class="col-sm-2">
+                    <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                        <option  data-hidden="true"></option>
+                        <option value="devops">Devops</option>
+                        <option value="Developer">Developer</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="col-sm-2">
+                    <select name="week_no" id="week_no" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
+                        <option data-hidden="true"></option>
+                        <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
+                    </select>
+                </div>  
+            </td>
+            <td>
+
+            </td>
           <td>
               <input type="date" formControlName="date" class="form-control">  
           </td>
@@ -64,6 +89,6 @@
     </form>  
         
     <br/>  
-    <!-- {{this.productForm.value | json}}   -->
+    {{this.productForm.value | json}}  
   </div>   
   

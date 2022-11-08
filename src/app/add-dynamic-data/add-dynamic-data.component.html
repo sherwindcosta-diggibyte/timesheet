@@ -6,27 +6,27 @@
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">  
     <div>
         <div class="column1">
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
                 <select name="emp_name" id="emp_name" formControlName="emp_name" data-size="5" title="Employee Name" class="form-control selectpicker"  data-live-search="true">
                     <ng-container *ngFor="let e of logdata" >
                         <option  data-hidden="true"></option>
                         <option [ngValue]="e.emp_name">{{e.emp_name}}</option>
                     </ng-container>
                 </select>
-            </div>
-            <div class="col-sm-2">
+            </div> -->
+            <!-- <div class="col-sm-2">
                 <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
                     <option  data-hidden="true"></option>
                     <option value="devops">Devops</option>
                     <option value="Developer">Developer</option>
                 </select>
-            </div>
-            <div class="col-sm-2">
+            </div> -->
+            <!-- <div class="col-sm-2">
                 <select name="week_no" id="week" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
                     <option data-hidden="true"></option>
                     <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </div>
       
@@ -46,34 +46,83 @@
             </td>
             
         </tr> -->
-        <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">  
-
-          <td>
-              <input type="date" formControlName="date" class="form-control">  
-          </td>
-          <td>
-              <select name="project_name" id="projname" data-size="5" formControlName="project_name" title="Project Name" class="form-control selectpicker"  data-live-search="true">
-                <ng-container *ngFor="let p of proname" >
-                    <option data-hidden="true"></option>
-                    <option [ngValue]="p.project_name">{{p.project_name}}</option>
-                </ng-container>
-                </select>
-          </td>  
-          <td>      
-              <input type="text" formControlName="task_name" class="form-control">  
-          </td>  
+        <tr >
             <td>
-            <input type="text" formControlName="hours" class="form-control">  
-            </td>  
-          <td>  
-              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>  
-          </td>  
-        </tr>  
-      </table>  
+                <select name="emp_name" id="emp_name" formControlName="emp_name" data-size="5" title="Employee Name" class="form-control selectpicker"  data-live-search="true">
+                    <ng-container *ngFor="let e of logdata" >
+                        <option  data-hidden="true"></option>
+                        <option [ngValue]="e.emp_name">{{e.emp_name}}</option>
+                    </ng-container>
+                </select>
+        </td>
+        <td>
+                <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                    <option  data-hidden="true"></option>
+                    <option value="devops">Devops</option>
+                    <option value="Developer">Developer</option>
+                </select>
+        </td>
+        <td>
+
+                <select name="week_no" id="week" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
+                    <option data-hidden="true"></option>
+                    <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
+                </select>
+        </td>
+        </tr>
+        <div *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+            <tr>
+                <td>
+                        <select name="emp_name" id="emp_name" formControlName="emp_name" data-size="5" title="Employee Name" class="form-control selectpicker"  data-live-search="true">
+                            <ng-container *ngFor="let e of logdata" >
+                                <option  data-hidden="true"></option>
+                                <option [ngValue]="e.emp_name">{{e.emp_name}}</option>
+                            </ng-container>
+                        </select>
+                </td>
+                <td>
+                        <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                            <option  data-hidden="true"></option>
+                            <option value="devops">Devops</option>
+                            <option value="Developer">Developer</option>
+                        </select>
+                </td>
+                <td>
+
+                        <select name="week_no" id="week" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
+                            <option data-hidden="true"></option>
+                            <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
+                        </select>
+                </td>
+            </tr>
+            <tr >  
+                <td>
+                    <input type="date" formControlName="date" class="form-control">  
+                </td>
+                <td>
+                    <select name="project_name" id="projname" data-size="5" formControlName="project_name" title="Project Name" class="form-control selectpicker"  data-live-search="true">
+                        <ng-container *ngFor="let p of proname" >
+                            <option data-hidden="true"></option>
+                            <option [ngValue]="p.project_name">{{p.project_name}}</option>
+                        </ng-container>
+                    </select>
+                </td>  
+                <td>      
+                    <input type="text" formControlName="task_name" class="form-control">  
+                </td>  
+                <td>
+                    <input type="text" formControlName="hours" class="form-control">  
+                </td>  
+                <td>  
+                    <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>  
+                </td>  
+            </tr>  
+        </div>
+        </table>  
         <button type="submit" class="btn btn-success">Submit</button>    
     </form>  
-        
+    
     <br/>  
    
   </div>  
-  
+    {{this.productForm.value | json}}  
