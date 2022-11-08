@@ -31,7 +31,28 @@ export class EditableTableComponent implements OnInit {
   public fieldArray: Array<any> = [];
   public newAttribute: any = {};
 
+
   currentTime = new Date();
+
+// get current month  getMonth(), +1 means getting current month
+
+minDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth(), +1);
+
+maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +1, +0);
+
+ 
+  // formData:FormGroup=this.fb.group({
+  //   ts_id:new FormControl(''),
+  //   emp_name:new FormControl(''),
+  //   type:new FormControl(''),
+  //   week:new FormControl(''),
+  //   date:new FormControl(''),
+  //   project_name:new FormControl(''),
+  //   task_Name:new FormControl(''),
+  //   hours:new FormControl(''),
+   
+  
+  // })
 
   week_no=[
     "1",
@@ -88,24 +109,22 @@ export class EditableTableComponent implements OnInit {
     "52",
 ]
 
-logdata =[
-  {
-    ts_id:"0",
-    "emp_name":"",
-    "p_type":"",
-    "week_no":"",
-   
-    date:"",
-    "project_name": "",
-    "task_name": "",
-    "hours": "",
-  },
+  logdata =[
+    {
+      "ts_id":"0",
+      "emp_name":"",
+      "p_type":"",
+      "week_no":"",
+     
+      "date":"",
+      "project_name": "",
+      "task_name": "",
+      "hours": "",
+    },
+    
 ]
 // get current month  getMonth(), +1 means getting current month
 
-  minDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth(), +1);
-
-  maxDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() +1, +0);
 
   taskForm: FormGroup;
 

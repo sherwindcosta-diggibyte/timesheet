@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditableTableComponent } from './editable-table/editable-table.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupName, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +27,10 @@ import { HomeComponent } from './home/home.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
-import { EditableTable1Component } from './editable-table1/editable-table1.component';
+import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.component';
+// import { EditableTable1Component } from './editable-table1/editable-table1.component';
+// import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.component';
+
 
 @NgModule({
   declarations: [
@@ -38,8 +41,8 @@ import { EditableTable1Component } from './editable-table1/editable-table1.compo
     EditFormComponent,
     PocTableComponent,
     HomeComponent,
-    AddDynamicallyComponent,
-    EditableTable1Component
+    AddDynamicDataComponent,
+    AddDynamicallyComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +59,12 @@ import { EditableTable1Component } from './editable-table1/editable-table1.compo
     MatNativeDateModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule, 
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatButtonModule
-    
+    MatButtonModule,
+    // FormGroup,
+  
   ],
   exports: [
     MatInputModule

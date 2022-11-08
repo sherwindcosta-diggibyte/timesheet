@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddDynamicallyComponent } from './add-dynamically/add-dynamically.component';
+import { AddDynamicDataComponent } from './add-dynamic-data/add-dynamic-data.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { EditableTableComponent } from './editable-table/editable-table.component';
 import { EditableTable1Component } from './editable-table1/editable-table1.component';
@@ -14,11 +15,7 @@ const routes: Routes = [
 {path:'editform/:id',component:EditFormComponent},
 {path:'poc',component:PocTableComponent},
 {path:'home',component:HomeComponent},
-{
-  path: 'addrows',
-  component: AddDynamicallyComponent
-},
-{path:'logsheet1',component:EditableTable1Component}
+{path:'logsheet1',component:AddDynamicDataComponent}
 
 ];
 

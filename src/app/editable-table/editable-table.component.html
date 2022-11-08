@@ -14,6 +14,8 @@
             <select [(ngModel)]="user.p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true" >
               <option  data-hidden="true"></option>
               <option value="devops">Devops</option>
+                <option  data-hidden="true"></option>
+                <option value="Devops">Devops</option>
               <option value="Developer">Developer</option>
             </select>
           </div>
@@ -60,10 +62,14 @@
           <td>
             <input type="text" [(ngModel)]="user.hours" class="form-control" />
           </td>
-        </tr>   
-        <tr>
-          <td class="tsid">
-            <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
+        
+          </tr> 
+
+
+
+          <tr>
+            <td class="tsid">
+              <input type="text" [(ngModel)]="user.ts_id" class="form-control" />
           </td>
           <td>
             <input type="date" [(ngModel)]="user.date" class="form-control" value="{{user.date | date:'yyyy-MM-dd'}}" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" >           
@@ -75,8 +81,9 @@
             </select>            
           </td>
           <td>
-            <input type="text" [(ngModel)]="user.task_name" class="form-control" />
-          </td>
+              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+         </td>
+
           <td>
             <input type="text" [(ngModel)]="user.hours" class="form-control" />
           </td>
@@ -84,23 +91,23 @@
         </tr> 
         
            <tr  *ngFor="let dynamic of dynamicArray; let i = index;">
-             <td class="tsid">
-               <input type="text" [(ngModel)]="user.ts_id" class="form-control"   />
-              </td>
-              <td>
-                
-                <input type="date" [(ngModel)]="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
-                
-              </td>
-              <td>
-                
-                <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
-                  <option  data-hidden="true"></option>
-                  <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
-                </select>            
-              </td>
-              <td>
-                <input type="text" [(ngModel)]="user.task_name" class="form-control" />
+            <td class="tsid">
+              <input type="text" [(ngModel)]="user.ts_id" class="form-control"   />
+          </td>
+          <td>
+
+          <input type="date" [(ngModel)]="user.date" placeholder="yyyy-mm-dd" [min]="minDate | date:'yyyy-MM-dd'" [max]="maxDate | date:'yyyy-MM-dd'" name="{{dynamic.date}}" >
+
+        </td>
+          <td>
+           
+                  <select [(ngModel)]="user.project_name" class="selectpicker" data-size="5"  class="form-control selectpicker"  data-live-search="true">
+                      <option  data-hidden="true"></option>
+                      <option *ngFor="let project of projname" [value]="project.project_name">{{project.project_name}}</option>
+                    </select>            
+           </td>
+          <td>
+              <input type="text" [(ngModel)]="user.task_name" class="form-control" />
          </td>
          
           <td>
@@ -144,5 +151,5 @@
         </tbody>
       </table>
   </form>
-   {{this.taskForm.value | json}}
+   <!-- {{this.taskForm.value | json}} -->
 
