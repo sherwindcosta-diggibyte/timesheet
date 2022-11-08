@@ -7,19 +7,19 @@
     <div>
         <div class="column1">
             <div class="col-sm-2">
-                <select name="emp_name" id="emp_name" formControlName="emp_name" class="selectpicker">
-                    <option value="" *ngFor="let e of logdata" [ngValue]="e.emp_name">{{e.emp_name}}</option>
+                <select name="emp_name" id="emp_name" formControlName="emp_name" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                    <option value="" *ngFor="let e of logdata"   [ngValue]="e.emp_name">{{e.emp_name}}</option>
                 </select>
             </div>
             <div class="col-sm-2">
-                <select name="position" id="position" formControlName="position" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
+                <select name="p_type" id="p_type" formControlName="p_type" class="selectpicker" data-size="5" title="Type" class="form-control selectpicker"  data-live-search="true">
                     <option  data-hidden="true"></option>
                     <option value="devops">Devops</option>
                     <option value="Developer">Developer</option>
                 </select>
             </div>
             <div class="col-sm-2">
-                <select name="weeks" id="weeks" data-size="5" formControlName="weeks" title="Week" class="form-control selectpicker"  data-live-search="true">
+                <select name="week_no" id="week_no" data-size="5" formControlName="week_no" title="Week" class="form-control selectpicker"  data-live-search="true">
                     <option data-hidden="true"></option>
                     <option *ngFor="let w of week_no" [ngValue]="w">Week - {{w}}</option>
                 </select>
@@ -42,7 +42,7 @@
               <input type="date" formControlName="date" class="form-control">  
           </td>
           <td>
-              <select name="projname" id="projname" data-size="5" formControlName="projname" title="Project name" class="form-control selectpicker"  data-live-search="true">
+              <select name="project_name" id="project_name" data-size="5" formControlName="project_name" title="Project name" class="form-control selectpicker"  data-live-search="true">
                 <ng-container *ngFor="let p of proname" >
                     <option data-hidden="true"></option>
                     <option [ngValue]="p.project_name">{{p.project_name}}</option>

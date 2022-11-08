@@ -9,6 +9,7 @@ import { ServiceService } from '../service/service.service';
   styleUrls: ['./add-dynamically.component.css']
 })
 export class AddDynamicallyComponent implements OnInit {
+  // emp_name: any;
 
   logdata = [
     {
@@ -54,14 +55,13 @@ export class AddDynamicallyComponent implements OnInit {
      
   newQuantity(): FormGroup {  
     return this.fb.group({      
-      emp_name: '',
-      name: '',  
-      position: '',
-      weeks: '',
-      date: '',  
-      projname: '',
-      task_name: '',
-      hours: '',
+      emp_name: [''],
+      p_type: [''],
+      week_no: [''],
+      date: [''],  
+      project_name: [''],
+      task_name: [''],
+      hours: [''],
     })  
   }  
      
