@@ -101,5 +101,8 @@ export class ServiceService {
           return this.http.get(this.url + '/hoursOfProject/' +project_name,  {responseType: "json"});
         
         }
+        getEmpName(emp_name:string):Observable<any>{
+          return this.http.get(this.url + '/getempname/' +emp_name, {responseType:"json"});
+        }
 
 }

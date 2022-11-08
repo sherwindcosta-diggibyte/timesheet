@@ -23,8 +23,8 @@ app.use(function(req, res, next) {
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'timesheet',
+    password: '4sf17cs403',
+    database: 'TIMESHEETS',
     multipleStatements: true
 });
 
@@ -119,43 +119,21 @@ app.delete('/tbl_fact_timesheet/:id', (req, res) => {
 // });
 
 //Insert data in Timesheet table
-app.post('/tbl_fact_timesheet', (req, res) => {
+// app.post('/tbl_fact_timesheet', (req, res) => {
+//     let tsdata = req.body;
 
-//var tsdata = new Map([req.body]);
- // var tsdata = [req.body];
-
-  const items = req.body;
-
-  mysqlConnection.query(
-`INSERT INTO tbl_fact_timesheet(week_no, date, emp_name, project_name, task_name, hours, p_type) VALUES ?`,
-[items.map(item => [item.week_no, item.date, item.emp_name, item.project_name, item.task_name, item.hours, item.p_type])],
-    (error, results) => {}
-);
-// var query = `INSERT INTO tbl_fact_timesheet(week_no, date, emp_name, project_name, task_name, hours, p_type) VALUES ?`;
-// var values = [['?','2000-03-02','?','?','?','6','?']];
-// mysqlConnection.query(query, [tsdata], function(err){
-//     if(err){ 
-//         console.log(err)
-//     }
-// })
-
-//var sql = `INSERT INTO contacts (f_name, l_name, email, message, created_at) VALUES ("${f_name}", "${l_name}", "${email}", "${message}", NOW())`;
-
-//     var valuesNestedArray  = [];
-
-//     for(var v in tsdata ) {
-//       valuesNestedArray.push([tsdata[v]]);
-//     }
-//     var sql = "INSERT INTO tbl_fact_timesheet (ts_id, week_no, date, emp_name, project_name, task_name, hours, p_type) values((@ts_id), (@week_no), (@date), (@emp_name), (@project_name), (@task_name), (@hours), (@Sp_type))";
-//    //var sql = `INSERT INTO tbl_fact_timesheet (ts_id, week_no, date, emp_name, project_name, task_name, hours, p_type) VALUES(("${ts_id}"), ("${week_no}"), ("${date}"), ("${emp_name}"), ("${project_name}"), ("${task_name}"), ("${hours}"), ("${p_type}"))`;
-
-    //  var sql = "SET @ts_id = ?;SET @week_no = ?;SET @date = ?;SET @emp_name = ?;SET @project_name = ?;SET @task_name = ?;SET @hours = ?;SET @p_type = ?; \
-    //  CALL TimeSheetAddOrEdit(@ts_id, @week_no, @date, @emp_name, @project_name, @task_name, @hours, @p_type);";
-//    mysqlConnection.query(sql, [valuesNestedArray.ts_id, valuesNestedArray.week_no, valuesNestedArray.date, valuesNestedArray.emp_name, valuesNestedArray.project_name, valuesNestedArray.task_name, valuesNestedArray.hours, valuesNestedArray.p_type],function(err) {
-//     if (err) throw err;   
-      
+//     var sql = "SET @ts_id = ?;SET @week_no = ?;SET @date = ?;SET @emp_name = ?;SET @project_name = ?;SET @task_name = ?;SET @hours = ?;SET @p_type = ?; \
+//     CALL TimeSheetAddOrEdit(@ts_id, @week_no, @date, @emp_name, @project_name, @task_name, @hours, @p_type);";
+//     mysqlConnection.query(sql, [tsdata.ts_id, tsdata.week_no, tsdata.date, tsdata.emp_name, tsdata.project_name, tsdata.task_name, tsdata.hours, tsdata.p_type], (err, rows, fields) => {
+//         if (!err)
+//             rows.forEach(element => {
+//                 if(element.constructor == Array)
+//                 res.send('Inserted data : '+ tsdata.ts_id);
+//             });
+//         else
+//             console.log(err);
 //     })
-});
+// });
 
 
 //Update data in Timesheet table
@@ -221,4 +199,29 @@ app.get('/hoursOfProject/:project_name', (req, res) => {
 
     })
 
+});
+app.get('/getempname/:emp_name', (req, res) => {
+
+    mysqlConnection.query('SELECT * FROM tbl_fact_timesheet WHERE emp_name = ?',[req.params.emp_name], (err, rows, fields) => {
+
+        if (!err)
+
+            res.send(rows);
+
+        else
+
+            console.log(err);
+
+    })
+
+});
+//Insert multidata in Timesheet table
+
+app.post('/tbl_fact_timesheet', (req, res) => {
+const items = req.body;
+mysqlConnection.query(
+`INSERT INTO tbl_fact_timesheet(week_no, date, emp_name, project_name, task_name, hours, p_type) VALUES ?`,
+  [items.map(item => [item.week_no, item.date, item.emp_name, item.project_name, item.task_name, item.hours, item.p_type])],
+  (error, results) => {}
+);
 });

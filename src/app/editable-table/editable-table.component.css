@@ -25,7 +25,7 @@ table{
 select{
     height: 38px;
     border-radius: 5px;
-    border:none
+     /* border:none */
 }
 .column1
 {
@@ -47,4 +47,8 @@ select{
 
 input,option{
     font-size: 14px;
+}
+
+select.bs-select-hidden, select.selectpicker {
+    display:block!important;
 }

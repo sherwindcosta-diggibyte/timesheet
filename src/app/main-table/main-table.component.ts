@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ServiceService } from '../service/service.service';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
-import { filter } from 'lodash';
+import * as _ from 'lodash';
+import { MatPaginator } from '@angular/material/paginator';
 // export interface PeriodicElement {
 //   date: string;
 //   project_name: string;
@@ -25,16 +26,15 @@ import { filter } from 'lodash';
 
 export class MainTableComponent implements OnInit {
   alltimesheetdata:any=[];
-  dataSource! :MatTableDataSource<any>;
+  dataSource:any;
   todeletedata:any;
   data:any;
-  filterValues:any = {};
-
+  // filterValues:any = {};
   getEmpname:any;
   emp_name:any;
   getProjname:any;
   projname:any;
-
+  filterData:any = {};
   logdata =[
     {
       "ts_id":"0",
@@ -49,51 +49,37 @@ export class MainTableComponent implements OnInit {
 
     }]
     isEdit=false;
- 
-  displayedColumns: string[] = ['select','week_no', 'date','emp_name', 'project_name', 'task_name','p_type' ,'hours'];
-  
-  selection = new SelectionModel<any>(true, []);
-
-
-  filterSelectObj :any = [];
-
-  fileName= 'ExcelSheet.xlsx';
-  totalhour:any;
-
-  total=0;    
-
-  value: any;
-  totalhourshow=false;
-  ngOnInit(): void {
+    displayedColumns: string[] = ['select','week_no', 'date','emp_name', 'project_name', 'task_name','p_type' ,'hours'];
+    selection = new SelectionModel<any>(true, []);
+    // filterSelectObj :any = [];
+    fileName= 'ExcelSheet.xlsx';
+    totalhour:any;
+    total=0;    
+    value: any;
+    totalhourshow=true;
+    @ViewChild(MatPaginator)paginator!: MatPaginator;
+    ngOnInit(): void {
     this.service.fetchAll().subscribe(data=>{
      this.alltimesheetdata = data;
      this.findsum(this.alltimesheetdata);
      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
-     this.dataSource.data = this.alltimesheetdata;
-     
+      //  this.dataSource.data = this.alltimesheetdata;
+     this.dataSource.paginator = this.paginator;
     })
     //getting all employees
     this.getEmpname = this.service.fetchAllEmployee().subscribe((data:any)=>{
-
-      // console.log(data);
-    
       this.emp_name = data;
-    
-      console.log(this.emp_name);
+     
     });
     //getting all projects
     this.getProjname = this.service.fetchAllProject().subscribe((data:any)=>{
-
-      // console.log(data);
-    
       this.projname = data;
-    
-      console.log(this.projname);
     });
    
   }
   constructor(private service:ServiceService,private router:Router){
-   
+    this.dataSource = new MatTableDataSource(this.alltimesheetdata);
+    this.dataSource.paginator = this.paginator;
 
   }
 
@@ -139,15 +125,10 @@ export class MainTableComponent implements OnInit {
     window.location.reload()
   }
   edit()
-
   {
-
     this.data = this.selection.selected;
-
     var id  = this.data[0].ts_id;
-
     this.router.navigate([`/editform`,id])
-
   }
   exportexcel(): void
   {
@@ -164,83 +145,95 @@ export class MainTableComponent implements OnInit {
  
   }
   findsum(data:any){    
-
-    debugger  
-
     this.value=data    
-
-    console.log(this.value);  
-
     for(let j=0;j<data.length;j++){  
-
-         this.total+= this.value[j].hours
-
-         console.log(this.total)  
-
+      this.total+= this.value[j].hours
     }  
 
   }
   //filter by type
   onChangeType(data:any)
-   {
-    console.log(data)
-    let filterData = filter(this.alltimesheetdata,(item:any)=>{
-      return item.p_type.toLowerCase() == data.toLowerCase();
+  {
+    if(data?.toLowerCase() == "all"){
+      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
+    }
+    else{
+    this.filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+      return item.p_type?.toLowerCase() == data.toLowerCase();
 
     })
-    this.dataSource = new MatTableDataSource(filterData);
+    this.dataSource = new MatTableDataSource(this.filterData);
+    this.dataSource.paginator = this.paginator;
+    }
     this.service.getTotalHoursForType(data).subscribe((res)=>{
       if(res[0].hours!=null)
       {
-        this.totalhourshow = true;
+        this.totalhourshow = false;
         this.totalhour = res;
         console.log(res);
       }
-      
+      else{
+        this.totalhourshow = true;
+      }
     })
    
    }
      //filter by employee name
-   onChangeEmployeeName(data:any)
+   onChangeEmployeeName(data:string)
    {
     console.log(data)
-    let filterData = filter(this.alltimesheetdata,(item:any)=>{
-      return item.emp_name.toLowerCase() == data.toLowerCase();
-    })
-    this.dataSource = new MatTableDataSource(filterData);
+    if(data?.toLowerCase() == "all"){
+      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
+    }
+    else{
+      this.filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+        return item.emp_name?.toLowerCase() == data.toLowerCase();
+      })
+      this.dataSource = new MatTableDataSource(this.filterData);
+      this.dataSource.paginator = this.paginator;
+    }
     this.service.getTotalHours(data).subscribe((res)=>{
       if(res[0].hours!=null)
       {
        
-        this.totalhourshow = true;
+        this.totalhourshow = false;
         this.totalhour = res;
         
         console.log(this.totalhour)
       }
-      
+      else{
+        this.totalhourshow = true;
+      }
     })
    }
    //filter by project name
-   onChangeProjectName(data:any)
+   onChangeProjectName(data:string)
    {
-    console.log(data.value)
-    let filterData = filter(this.alltimesheetdata,(item:any)=>{
-      return item.project_name.toLowerCase() == data.toLowerCase();
+    console.log(data)
+    if(data?.toLowerCase() == "all"){
+      this.dataSource = new MatTableDataSource(this.alltimesheetdata);
+    }
+    
+    else{
+    this.filterData = _.filter(this.alltimesheetdata,(item:any)=>{
+      return item.project_name?.toLowerCase() == data.toLowerCase();
     })
-    this.dataSource = new MatTableDataSource(filterData);
+    this.dataSource = new MatTableDataSource(this.filterData);
+    this.dataSource.paginator = this.paginator;
+    }
     this.service.getTotalHoursForProjectName(data).subscribe((res)=>{
       if(res[0].hours!=null)
       {
-       this.totalhourshow = true;
+       this.totalhourshow = false;
         this.totalhour = res;
         console.log(res);
         console.log(this.totalhour)
       }
+      else{
+        this.totalhourshow = true;
+      }
     })
    }
-   MyValue(value:any)
-   {
-    console.log(value)
-   }
+
    
 }
